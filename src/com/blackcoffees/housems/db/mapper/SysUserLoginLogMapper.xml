@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackcoffees.housems.db.dao.SysUserLoginLogMapper">
+	<resultMap id="baseResultMap" type="com.blackcoffees.housems.db.entity.SysUserLoginLog">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="user_id"  jdbcType="INTEGER"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+	</resultMap>
+	
+	<insert id="addLoginLog" useGeneratedKeys="true" keyProperty="loginLog.id">
+		insert into sys_user_login_log(user_id, created) values(#{loginLog.user_id}, #{loginLog.created})
+	</insert>
+	
+	<select id="getLoginLog" resultType="com.blackcoffees.housems.db.entity.SysUserLoginLog">
+		select * from sys_user_login_log where created >= #{startTime}
+	</select>
+</mapper>

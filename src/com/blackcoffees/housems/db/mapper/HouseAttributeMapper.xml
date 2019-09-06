@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackcoffees.housems.db.dao.HouseAttributeMapper">
+	<resultMap id="baseResultMap" type="com.blackcoffees.housems.db.entity.HouseAttribute">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="chiese_name" property="chiese_name"  jdbcType="VARCHAR"/>
+		<result column="internet_name" property="internet_name"  jdbcType="VARCHAR"/>
+		<result column="internet_type" property="internet_type"  jdbcType="VARCHAR"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="updated" property="updated" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+	</resultMap>
+</mapper>

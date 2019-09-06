@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackcoffees.housems.db.dao.RealEstateAttrMapper">
+	<resultMap id="baseResultMap" type="com.blackcoffees.housems.db.entity.RealEstateAttr">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="attr_title" property="attr_title"  jdbcType="VARCHAR"/>
+		<result column="attr_value" property="attr_value"  jdbcType="VARCHAR"/>
+		<result column="real_estate_id" property="real_estate_id"  jdbcType="INTEGER"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="updated" property="updated" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+	</resultMap>
+</mapper>

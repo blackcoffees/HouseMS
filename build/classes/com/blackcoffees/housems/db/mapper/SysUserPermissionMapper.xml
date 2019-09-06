@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackcoffees.housems.db.dao.SysUserPermissionMapper">
+	<resultMap id="baseResultMap" type="com.blackcoffees.housems.db.entity.SysUserPermission">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="module_id" property="module_id"  jdbcType="INTEGER"/>
+		<result column="user_id" property="user_id"  jdbcType="INTEGER"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="updated" property="updated" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+	</resultMap>
+	
+	<select id="getUserModule" resultMap="baseResultMap">
+		select * from sys_user_permission where user_id=#{user_id}
+	</select>
+	
+	<insert id="addUserPermission" useGeneratedKeys="true" keyProperty="permission.id">
+		insert into sys_user_permission(module_id, user_id, created) values(#{permission.module_id}, #{permission.user_id}, #{permission.created})
+	</insert>
+	
+	<delete id="deleteUserPermission">
+		delete from sys_user_permission where module_id=#{permission.module_id} and user_id=#{permission.user_id}
+	</delete>
+	
+	<select id="checkUserPermission" resultType="int">
+		select count(id) from sys_user_permission where user_id=#{permission.user_id} and module_id=#{permission.module_id}
+	</select>
+</mapper>

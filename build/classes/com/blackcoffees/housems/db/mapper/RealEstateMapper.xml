@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackcoffees.housems.db.dao.RealEstateMapper">
+	<resultMap id="baseResultMap" type="com.blackcoffees.housems.db.entity.RealEstate">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="address" property="address"  jdbcType="VARCHAR"/>
+		<result column="name" property="name"  jdbcType="VARCHAR"/>
+		<result column="developer" property="developer"  jdbcType="VARCHAR"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="updated" property="updated" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="count_house_number" property="count_house_number"  jdbcType="INTEGER"/>
+		<result column="web_source_id" property="web_source_id"  jdbcType="INTEGER"/>
+		<result column="web_real_estate_id" property="web_real_estate_id"  jdbcType="INTEGER"/>
+		<result column="region_id" property="region_id"  jdbcType="INTEGER"/>
+		<result column="country_id" property="country_id"  jdbcType="INTEGER"/>
+		<result column="province_id" property="province_id"  jdbcType="INTEGER"/>
+		<result column="city_id" property="city_id"  jdbcType="INTEGER"/>
+	</resultMap>
+</mapper>

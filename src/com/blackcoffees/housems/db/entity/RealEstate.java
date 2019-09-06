@@ -21,7 +21,7 @@ public class RealEstate {
 	private int region_id;
 	private int country_id;
 	private int province_id;
-	private int city;
+	private int city_id;
 	public int getId() {
 		return id;
 	}
@@ -94,11 +94,11 @@ public class RealEstate {
 	public void setProvince_id(int province_id) {
 		this.province_id = province_id;
 	}
-	public int getCity() {
-		return city;
+	public int getcity_id() {
+		return city_id;
 	}
-	public void setCity(int city) {
-		this.city = city;
+	public void setcity_id(int city_id) {
+		this.city_id = city_id;
 	}
 	
 }

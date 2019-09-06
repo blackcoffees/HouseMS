@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackcoffees.housems.db.dao.SysUserMapper">
+	<resultMap id="baseResultMap" type="com.blackcoffees.housems.db.entity.SysUser">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="username" property="username"  jdbcType="VARCHAR"/>
+		<result column="password" property="password"  jdbcType="VARCHAR"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="updated" property="updated" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="last_login" property="last_login" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="status" property="status"  jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="userLogin" resultType="int">
+		select IFNULL(max(id),0) AS id from sys_user where username=#{user.username} and password=#{user.password} and status=1
+	</select>
+	
+	<update id="updateUserLastLogin">
+		update sys_user set last_login=#{user.last_login} where id=#{user.id} 
+	</update>
+	
+	<select id="getUserByUsername" resultType="com.blackcoffees.housems.db.entity.SysUser">
+		select * from sys_user where username=#{username}
+	</select>
+	
+	<select id="getAllUser" resultMap="baseResultMap">
+		select * from sys_user limit #{pager.start}, #{pager.rows}
+	</select>
+	
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="user.id">
+		insert into sys_user(username,password,created,status) values(#{user.username}, #{user.password}, #{user.created}, #{user.status})
+	</insert>
+	
+	<update id="updateUserStatus">
+		update sys_user set status=#{user.status}, updated=#{user.updated} where id=#{user.id}
+	</update>
+	
+	<update id="updateResetPassword">
+		update sys_user set password=#{user.password}, updated=#{user.updated} where id=#{user.id}
+	</update>
+</mapper>

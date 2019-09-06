@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackcoffees.housems.db.dao.SysModuleMapper">
+	<resultMap id="baseResultMap" type="com.blackcoffees.housems.db.entity.SysModule">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name"  jdbcType="VARCHAR"/>
+		<result column="href" property="href"  jdbcType="VARCHAR"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="updated" property="updated" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="parent_id" property="parent_id"  jdbcType="INTEGER"/>
+		<result column="status" property="status"  jdbcType="INTEGER"/>
+		<result column="sys_user_id" property="sys_user_id"  jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="getAllModule" resultMap="baseResultMap">
+		select * from sys_module limit #{pager.start}, #{pager.rows}
+	</select>
+	
+	<insert id="addModule" useGeneratedKeys="true" keyProperty="module.id">
+		insert into sys_module(name, href, created, parent_id, status, sys_user_id) 
+		values(#{module.name}, #{module.href}, #{module.created}, #{module.parent_id}, #{module.status}, #{module.sys_user_id})
+	</insert>
+	
+	<select id="checkModuleUnique" resultType="int">
+		select count(1) from sys_module where name=#{module.name} and href=#{module.href}
+	</select>
+	
+	<update id="updateModuleStatus">
+		update sys_module set status=#{module.status}, updated=#{module.updated} where id=#{module.id}
+	</update>
+	
+	<update id="updateModule">
+		update sys_module set name=#{module.name}, href=#{module.href}, updated=#{module.updated}, parent_id=#{module.parent_id} where id=#{module.id}
+	</update>
+	
+	<select id="getModuleTreeNode" resultMap="baseResultMap">
+		select * from sys_module where status = 1 
+		<choose>
+			<when test="parent_id == 0">
+			 and parent_id=0 order by id
+			</when>
+			<otherwise>
+			 and parent_id = #{parent_id} order by id
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getRootChildModule" resultMap="baseResultMap">
+		select * from sys_module where status=1 and parent_id=0 order by id
+	</select>
+	
+	
+	<select id="getRootModuleByIds" resultMap="baseResultMap">
+		select * from sys_module where status=1 and parent_id=0 and id in 
+		<foreach collection="module_ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+		</foreach>
+	</select>
+	
+	<select id="getUserModule" resultMap="baseResultMap">
+		SELECT DISTINCT sys_module.* FROM sys_module,sys_user_permission WHERE ((sys_module.id = sys_user_permission.module_id AND sys_user_permission.user_id = 1) or (sys_module.parent_id = 0)) and `status` = 1 ORDER BY sys_module.parent_id; 
+	</select>
+</mapper>
